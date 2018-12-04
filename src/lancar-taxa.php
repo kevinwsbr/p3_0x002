@@ -2,15 +2,15 @@
 
 require_once 'configs/Database.php';
 require_once 'configs/Employee.php';
-require_once 'configs/Sale.php';
+require_once 'configs/Tax.php';
 
 $conn = new Database();
 
 $employee = new Employee($conn->db);
-$sale = new Sale($conn->db);
+$tax = new Tax($conn->db);
 
 $employees = $employee->getEmployees();
-$sale->register();
+$tax->register();
 
 ?>
 
@@ -21,7 +21,7 @@ $sale->register();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <title>Lançar Venda | Sistema de Folha de Pagamento</title>
+  <title>Lançar Taxa | Sistema de Folha de Pagamento</title>
 </head>
 
 <body>
@@ -29,12 +29,12 @@ $sale->register();
   <section class="container">
     <div class="row my-3">
       <div class="col col-12">
-        <h3>Lançar venda</h3>
+        <h3>Lançar taxa</h3>
       </div>
     </div>
     <div class="row">
       <div class="col col-12">
-        <form action="lancar-venda.php" method="POST">
+        <form action="lancar-taxa.php" method="POST">
           <div class="form-group">
                 <label for="employeeID">Selecionar funcionário</label>
                 <select name="employeeID" class="form-control" id="employeeID">
@@ -46,19 +46,19 @@ $sale->register();
               <div class="row">
                   <div class="col">
                       <div class="form-group">
-            <label for="value">Valor da venda</label>
-            <input type="text" name="value" class="form-control" id="value" placeholder="Preço do produto">
+            <label for="value">Valor da taxa</label>
+            <input type="text" name="value" class="form-control" id="value" placeholder="Custo da taxa">
           </div>
                   </div>
                   <div class="col">
 <div class="form-group">
-            <label for="date">Data da venda</label>
+            <label for="date">Data da taxa</label>
             <input type="date" name="date" class="form-control" id="date" value="<?php echo date("d/m/Y"); ?>">
           </div>
                   </div>
               </div>
 
-          <button type="submit" class="btn btn-success">Registrar venda</button>
+          <button type="submit" class="btn btn-success">Registrar taxa</button>
         </form>
       </div>
     </div>

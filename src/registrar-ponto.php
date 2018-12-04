@@ -10,6 +10,7 @@ $employee = new Employee($conn->db);
 $timecard = new Timecard($conn->db);
 
 $employees = $employee->getEmployees();
+
 $timecard->register();
 
 ?>
@@ -67,6 +68,29 @@ $timecard->register();
   <script src="assets/js/popper.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/register.js"></script>
+  <script>
+    $('#employeeID').change(function () {
+  switch ($(this).val()) {
+    case 'salaried':
+      $('#baseSalary').prop("disabled", false);
+      $('#hourlySalary').prop("disabled", true);
+      $('#comission').prop("disabled", true);
+      break;
+    case 'comissioned':
+      $('#comission').prop("disabled", false);
+      $('#hourlySalary').prop("disabled", true);
+      $('#baseSalary').prop("disabled", true);
+      break;
+    case 'hourly':
+      $('#hourlySalary').prop("disabled", false);
+      $('#baseSalary').prop("disabled", true);
+      $('#comission').prop("disabled", true);
+      break;
+    default:
+      break;
+  }
+});
+  </script>
 </body>
 
 </html>
