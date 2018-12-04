@@ -116,6 +116,18 @@ class Employee {
         }
     }
 
+    public function deleteEmployee($employeeID) {
+        if ($_SERVER['REQUEST_METHOD']=='GET') {
+            $sql='SET foreign_key_checks = 0; DELETE FROM `sales` WHERE `sales`.`idemployee` = :idemployee; DELETE FROM `taxes` WHERE `taxes`.`idemployee` = :idemployee; DELETE FROM `timecards` WHERE `timecards`.`idemployee` = :idemployee; DELETE FROM `employees` WHERE `employees`.`ID` = :idemployee;';
+            
+            $db=$this->db->prepare($sql);
+
+            $db->bindValue(':idemployee', $employeeID, PDO::PARAM_STR);
+
+            $db->execute();
+        }
+    }
+
     public function getEmployees()
     {
         $sql='SELECT * FROM `employees`;';
