@@ -45,7 +45,7 @@ class Timecard {
         $sql='SELECT * FROM `timecards` WHERE `idemployee` = :idemployee;';
 
         $db=$this->db->prepare($sql);
-        $db->bindValue(':idemployee', employeeID, PDO::PARAM_STR);
+        $db->bindValue(':idemployee', $employeeID, PDO::PARAM_STR);
         $db->execute();
 
         return $db->fetchAll(PDO::FETCH_ASSOC);
