@@ -32,10 +32,13 @@ $employees = $employee->getEmployees();
         <a class="btn btn-info btn-block" href="cadastrar-funcionario.php" role="button">Cadastrar funcionário</a>
       </div>
       <div class="col">
-        <a class="btn btn-info btn-block" href="registrar-ponto.php" role="button">Registrar ponto</a>
+        <a class="btn btn-success btn-block" href="registrar-ponto.php" role="button">Registrar ponto</a>
       </div>
       <div class="col">
-        <a class="btn btn-info btn-block" href="lancar-venda.php" role="button">Lançar venda</a>
+        <a class="btn btn-success btn-block" href="lancar-venda.php" role="button">Lançar venda</a>
+      </div>
+      <div class="col">
+        <a class="btn btn-success btn-block" href="lancar-taxa.php" role="button">Lançar Taxa</a>
       </div>
     </div>
     <div class="row">
@@ -58,13 +61,21 @@ $employees = $employee->getEmployees();
                 <?php echo $emp['ID']; ?>
               </th>
               <td>
-                <?php echo $emp['name']; ?>
+                <a href="detalhar-funcionario.php?id=<?php echo $emp['ID']; ?>"><?php echo $emp['name']; ?></a>
               </td>
               <td>
                 <?php echo $emp['address']; ?>
               </td>
               <td>
-                <?php echo $emp['type']; ?>
+                <?php 
+                  if ($emp['type'] == 'comissioned') {
+                    echo 'Comissionado';
+                  }else if ($emp['type'] == 'salaried') {
+                    echo 'Assalariado';
+                  }else if ($emp['type'] == 'hourly') {
+                    echo 'Horista';
+                  }
+                ?>
               </td>
               <td>
                 <div class="row no-gutters">
