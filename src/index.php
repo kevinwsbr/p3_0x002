@@ -32,6 +32,9 @@ $employees = $employee->getEmployees();
         <a class="btn btn-info btn-block" href="cadastrar-funcionario.php" role="button">Cadastrar funcionário</a>
       </div>
       <div class="col">
+        <a class="btn btn-info btn-block" href="gerar-folha.php" role="button">Gerar folha de pagamento</a>
+      </div>
+      <div class="col">
         <a class="btn btn-success btn-block" href="registrar-ponto.php" role="button">Registrar ponto</a>
       </div>
       <div class="col">

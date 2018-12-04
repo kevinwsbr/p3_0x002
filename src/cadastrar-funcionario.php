@@ -32,7 +32,7 @@ $employee->register();
         <form action="cadastrar-funcionario.php" method="POST">
           <div class="form-group">
             <label for="name">Nome</label>
-            <input type="text" name="name" class="form-control" id="name" placeholder="Nome do funcionário">
+            <input required type="text" name="name" class="form-control" id="name" placeholder="Nome do funcionário">
           </div>
           <div class="form-group">
             <label for="address">Endereço</label>
@@ -71,11 +71,17 @@ $employee->register();
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="type">Filiado a sindicato?</label>
-                <select class="form-control" id="type">
-                  <option>Não</option>
-                  <option>Sim</option>
+                <label for="syndicate">Filiado a sindicato?</label>
+                <select class="form-control" name="syndicate" id="syndicate">
+                  <option value="0">Não</option>
+                  <option value="1">Sim</option>
                 </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="syndicateTax">Taxa sindical</label>
+                <input disabled type="text" name="syndicateTax" class="form-control" id="syndicateTax" placeholder="ex.: Rua Sem Futuro, nº 185.">
               </div>
             </div>
           </div>

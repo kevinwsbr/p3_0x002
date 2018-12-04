@@ -37,7 +37,7 @@ $sale->register();
         <form action="lancar-venda.php" method="POST">
           <div class="form-group">
                 <label for="employeeID">Selecionar funcionário</label>
-                <select name="employeeID" class="form-control" id="employeeID">
+                <select required name="employeeID" class="form-control" id="employeeID">
                 <?php foreach ($employees as $emp) {?>
                   <option value="<?php echo $emp['ID'];?>"><?php echo $emp['name'];?></option>
                 <?php } ?>
@@ -47,13 +47,13 @@ $sale->register();
                   <div class="col">
                       <div class="form-group">
             <label for="value">Valor da venda</label>
-            <input type="text" name="value" class="form-control" id="value" placeholder="Preço do produto">
+            <input required type="text" name="value" class="form-control" id="value" placeholder="Preço do produto">
           </div>
                   </div>
                   <div class="col">
 <div class="form-group">
             <label for="date">Data da venda</label>
-            <input type="date" name="date" class="form-control" id="date" value="<?php echo date("d/m/Y"); ?>">
+            <input required type="date" name="date" class="form-control" id="date" value="<?php echo date("d/m/Y"); ?>">
           </div>
                   </div>
               </div>

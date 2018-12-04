@@ -38,7 +38,7 @@ $timecard->register();
         <form action="registrar-ponto.php" method="POST">
           <div class="form-group">
                 <label for="employeeID">Selecionar funcionário</label>
-                <select name="employeeID" class="form-control" id="employeeID">
+                <select required name="employeeID" class="form-control" id="employeeID">
                 <?php foreach ($employees as $emp) {?>
                   <option value="<?php echo $emp['ID'];?>"><?php echo $emp['name'];?></option>
                 <?php } ?>
@@ -48,13 +48,13 @@ $timecard->register();
                   <div class="col">
                       <div class="form-group">
             <label for="time">Horas trabalhadas</label>
-            <input type="number" min="1" max="16" name="time" class="form-control" id="time" placeholder="Número de horas trabalhadas">
+            <input required type="number" min="1" max="16" name="time" class="form-control" id="time" placeholder="Número de horas trabalhadas">
           </div>
                   </div>
                   <div class="col">
 <div class="form-group">
             <label for="date">Data do registro</label>
-            <input type="date" name="date" class="form-control" id="date" value="<?php echo date("d/m/Y"); ?>">
+            <input required type="date" name="date" class="form-control" id="date" value="<?php echo date("d/m/Y"); ?>">
           </div>
                   </div>
               </div>

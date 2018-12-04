@@ -2,11 +2,16 @@
 
 require_once 'configs/Database.php';
 require_once 'configs/Employee.php';
+require_once 'configs/Timecard.php';
 
 $conn = new Database();
 $employee = new Employee($conn->db);
+$timecard = new Timecard($conn->db);
+
 $employee->getEmployee($_GET['id']);
+$timecards = $timecard->getTimecardsFromEmployee($_GET['id']);
 $employee->updateData();
+print_r($timecards);
 
 ?>
 

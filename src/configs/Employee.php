@@ -8,6 +8,7 @@ class Employee {
     protected $baseSalary;
     protected $hourlySalary;
     protected $comission;
+    protected $lastPayment;
     protected $db;
 
     public function __construct($db)
@@ -48,6 +49,11 @@ class Employee {
     public function getComission ()
     {
         return $this->comission;
+    }
+
+    public function getLastPayment ()
+    {
+        return $this->lastPayment;
     }
 
     public function extractData() 
@@ -116,6 +122,23 @@ class Employee {
         }
     }
 
+    public function generatePayroll($date) {
+        if ($_SERVER['REQUEST_METHOD']=='POST') {
+            $sql='SELECT * FROM `employees` WHERE `next_payment` = :date;';
+
+            $db=$this->db->prepare($sql);
+            $db->bindValue(':date', $date, PDO::PARAM_STR);
+
+            $db->execute();
+
+            return $db->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function calculatePayment($employeeID) {
+        
+    }
+
     public function deleteEmployee($employeeID) {
         if ($_SERVER['REQUEST_METHOD']=='GET') {
             $sql='SET foreign_key_checks = 0; DELETE FROM `sales` WHERE `sales`.`idemployee` = :idemployee; DELETE FROM `taxes` WHERE `taxes`.`idemployee` = :idemployee; DELETE FROM `timecards` WHERE `timecards`.`idemployee` = :idemployee; DELETE FROM `employees` WHERE `employees`.`ID` = :idemployee;';
@@ -142,7 +165,7 @@ class Employee {
     {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $this->extractData();
-            $sql='INSERT INTO `employees` (`name`, `address`, `base_salary`, `hourly_salary`, `comission`, `type`) VALUES (:name, :address, :baseSalary, :hourlySalary, :comission, :type);';
+            $sql='INSERT INTO `employees` (`name`, `address`, `base_salary`, `hourly_salary`, `comission`, `type`, `last_payment`) VALUES (:name, :address, :baseSalary, :hourlySalary, :comission, :type, :lastPayment);';
             
             $db=$this->db->prepare($sql);
             $db->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
@@ -151,6 +174,7 @@ class Employee {
             $db->bindValue(':hourlySalary', $this->hourlySalary, PDO::PARAM_STR);
             $db->bindValue(':comission', $this->comission, PDO::PARAM_STR);
             $db->bindValue(':type', $_POST['type'], PDO::PARAM_STR);
+            $db->bindValue(':lastPayment', date("Y-m-d H:i:s"), PDO::PARAM_STR);
             
             $db->execute();
             header('Location: index.php');

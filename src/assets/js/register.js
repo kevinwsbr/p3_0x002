@@ -8,7 +8,7 @@ $('#type').change(function () {
     case 'comissioned':
       $('#comission').prop("disabled", false);
       $('#hourlySalary').prop("disabled", true);
-      $('#baseSalary').prop("disabled", true);
+      $('#baseSalary').prop("disabled", false);
       break;
     case 'hourly':
       $('#hourlySalary').prop("disabled", false);
@@ -17,5 +17,13 @@ $('#type').change(function () {
       break;
     default:
       break;
+  }
+});
+
+$('#syndicate').change(function () {
+  if ($(this).val() == '1') {
+    $('#syndicateTax').prop("disabled", false);
+  } else {
+    $('#syndicateTax').prop("disabled", true);
   }
 });
