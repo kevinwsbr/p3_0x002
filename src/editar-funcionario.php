@@ -11,7 +11,6 @@ $timecard = new Timecard($conn->db);
 $employee->getEmployee($_GET['id']);
 $timecards = $timecard->getTimecardsFromEmployee($_GET['id']);
 $employee->updateData();
-print_r($timecards);
 
 ?>
 
@@ -78,15 +77,20 @@ print_r($timecards);
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="type">Filiado a sindicato?</label>
-                <select class="form-control" id="type">
-                  <option>Não</option>
-                  <option>Sim</option>
+                <label for="syndicated">Filiado a sindicato?</label>
+                <select class="form-control" name="syndicated" id="syndicated">
+                  <option <?php if($employee->isSyndicated() == '0') {echo 'selected';}?> value="0">Não</option>
+                  <option <?php if($employee->isSyndicated() == '1') {echo 'selected';}?> value="1">Sim</option>
                 </select>
               </div>
             </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="syndicateTax">Taxa sindical</label>
+                <input disabled type="text" name="syndicateTax" class="form-control" id="syndicateTax" value="<?php echo $employee->getSyndicateTax(); ?>">
+              </div>
+            </div>
           </div>
-
           <button type="submit" class="btn btn-success">Atualizar registro</button>
         </form>
       </div>

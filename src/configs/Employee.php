@@ -9,6 +9,8 @@ class Employee {
     protected $hourlySalary;
     protected $comission;
     protected $lastPayment;
+    protected $syndicated;
+    protected $syndicateTax;
     protected $db;
 
     public function __construct($db)
@@ -56,6 +58,16 @@ class Employee {
         return $this->lastPayment;
     }
 
+    public function isSyndicated ()
+    {
+        return $this->syndicated;
+    }
+
+    public function getSyndicateTax ()
+    {
+        return $this->syndicateTax;
+    }
+
     public function extractData() 
     {
         if(!isset($_POST['baseSalary'])) {
@@ -76,6 +88,12 @@ class Employee {
         else {
             $this->comission = $_POST['comission'];
         }
+        if(!isset($_POST['syndicateTax'])) {
+            $this->syndicateTax = 0;
+        }
+        else {
+            $this->syndicateTax = $_POST['syndicateTax'];
+        }
     }
 
     public function getEmployee($employeeID) {
@@ -86,7 +104,6 @@ class Employee {
         $db->execute();
 
         $this->setData($db->fetch(PDO::FETCH_ASSOC));
-        print_r($db->fetch(PDO::FETCH_ASSOC));
     }
 
     public function setData($user)
@@ -98,6 +115,9 @@ class Employee {
         $this->baseSalary = $user['base_salary'];
         $this->hourlySalary = $user['hourly_salary'];
         $this->comission = $user['comission'];
+        $this->lastPayment = $user['last_payment'];
+        $this->syndicated = $user['syndicated'];
+        $this->syndicateTax = $user['syndicate_tax'];
     }
 
     public function updateData() {
@@ -105,16 +125,18 @@ class Employee {
             echo 'teste';
             $this->extractData();
 
-            $sql='UPDATE `employees` SET `name` = :name, `address` = :address, `type` = :type, `base_salary` = :baseSalary, `hourly_salary` = :hourlySalary, `comission` = :comission WHERE `ID` = :ID;';
+            $sql='UPDATE `employees` SET `name` = :name, `address` = :address, `type` = :type, `base_salary` = :baseSalary, `hourly_salary` = :hourlySalary, `comission` = :comission, `syndicated` = :syndicated, `syndicate_tax` = :syndicateTax WHERE `ID` = :ID;';
             
             $db=$this->db->prepare($sql);
             var_dump($sql);
             $db->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
             $db->bindValue(':address', $_POST['address'], PDO::PARAM_STR);
             $db->bindValue(':type', $_POST['type'], PDO::PARAM_STR);
-            $db->bindValue(':baseSalary', $_POST['baseSalary'], PDO::PARAM_STR);
-            $db->bindValue(':hourlySalary', $_POST['hourlySalary'], PDO::PARAM_STR);
-            $db->bindValue(':comission', $_POST['comission'], PDO::PARAM_STR);
+            $db->bindValue(':baseSalary', $this->baseSalary, PDO::PARAM_STR);
+            $db->bindValue(':hourlySalary', $this->hourlySalary, PDO::PARAM_STR);
+            $db->bindValue(':comission', $this->comission, PDO::PARAM_STR);
+            $db->bindValue(':syndicated', $_POST['syndicated'], PDO::PARAM_STR);
+            $db->bindValue(':syndicateTax', $this->syndicateTax, PDO::PARAM_STR);
             $db->bindValue(':ID', $_GET['id'], PDO::PARAM_STR);
 
             $db->execute();
@@ -133,10 +155,6 @@ class Employee {
 
             return $db->fetchAll(PDO::FETCH_ASSOC);
         }
-    }
-
-    public function calculatePayment($employeeID) {
-        
     }
 
     public function deleteEmployee($employeeID) {
@@ -165,7 +183,7 @@ class Employee {
     {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $this->extractData();
-            $sql='INSERT INTO `employees` (`name`, `address`, `base_salary`, `hourly_salary`, `comission`, `type`, `last_payment`) VALUES (:name, :address, :baseSalary, :hourlySalary, :comission, :type, :lastPayment);';
+            $sql='INSERT INTO `employees` (`name`, `address`, `base_salary`, `hourly_salary`, `comission`, `type`, `last_payment`, `syndicated`, `syndicate_tax`) VALUES (:name, :address, :baseSalary, :hourlySalary, :comission, :type, :lastPayment, :syndicated, :syndicateTax);';
             
             $db=$this->db->prepare($sql);
             $db->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
@@ -175,6 +193,8 @@ class Employee {
             $db->bindValue(':comission', $this->comission, PDO::PARAM_STR);
             $db->bindValue(':type', $_POST['type'], PDO::PARAM_STR);
             $db->bindValue(':lastPayment', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+            $db->bindValue(':syndicated', $_POST['syndicated'], PDO::PARAM_STR);
+            $db->bindValue(':syndicateTax', $this->syndicateTax, PDO::PARAM_STR);
             
             $db->execute();
             header('Location: index.php');

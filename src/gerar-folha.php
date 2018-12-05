@@ -86,7 +86,7 @@ $employees = $employee->getEmployees();
               <td>
                   <?php
                   foreach ($sales as $sls) {
-                        $value = ($sls['value']*$sls['comission'])/100;
+                        $value = ($sls['value']*$emp['comission'])/100;
                         echo '<span class="d-block">R$'.$value.'</span>';
                         $total += $value;
                     }
@@ -108,7 +108,7 @@ $employees = $employee->getEmployees();
                 <td></td>
                 <td></td>
                 <td></td>
-                <th>Valor parcial: <?php echo 'R$'.$total; ?></th>
+                <th>Pagamento para <?php echo $emp['name'].': R$'.$total; ?></th>
                 <?php
                     $totals += $total;
                 ?>

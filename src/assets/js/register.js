@@ -19,11 +19,3 @@ $('#type').change(function () {
       break;
   }
 });
-
-$('#syndicate').change(function () {
-  if ($(this).val() == '1') {
-    $('#syndicateTax').prop("disabled", false);
-  } else {
-    $('#syndicateTax').prop("disabled", true);
-  }
-});

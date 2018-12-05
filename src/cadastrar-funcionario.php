@@ -42,19 +42,19 @@ $employee->register();
             <div class="col">
               <div class="form-group">
                 <label for="salary">Salário base</label>
-                <input type="text" name="baseSalary" class="form-control" id="baseSalary" placeholder="ex.: Rua Sem Futuro, nº 185.">
+                <input type="text" name="baseSalary" class="form-control" id="baseSalary" placeholder="ex.: 5000,00">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="salary">Salário por hora</label>
-                <input disabled type="text" name="hourlySalary" class="form-control" id="hourlySalary" placeholder="ex.: Rua Sem Futuro, nº 185.">
+                <input disabled type="text" name="hourlySalary" class="form-control" id="hourlySalary" placeholder="ex.: 120,00">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="salary">Comissão por venda</label>
-                <input disabled type="text" name="comission" class="form-control" id="comission" placeholder="ex.: Rua Sem Futuro, nº 185.">
+                <label for="salary">Comissão por venda (%)</label>
+                <input disabled type="text" name="comission" class="form-control" id="comission" placeholder="ex.: 10">
               </div>
             </div>
           </div>
@@ -71,9 +71,9 @@ $employee->register();
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="syndicate">Filiado a sindicato?</label>
-                <select class="form-control" name="syndicate" id="syndicate">
-                  <option value="0">Não</option>
+                <label for="syndicated">Filiado a sindicato?</label>
+                <select class="form-control" name="syndicated" id="syndicated">
+                  <option selected value="0">Não</option>
                   <option value="1">Sim</option>
                 </select>
               </div>
@@ -95,6 +95,15 @@ $employee->register();
   <script src="assets/js/popper.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/register.js"></script>
+  <script>
+    $('#syndicated').change(function () {
+      if ($(this).val() == '1') {
+        $('#syndicateTax').prop("disabled", false);
+      } else {
+        $('#syndicateTax').prop("disabled", true);
+      }
+    });
+  </script>
 </body>
 
 </html>
